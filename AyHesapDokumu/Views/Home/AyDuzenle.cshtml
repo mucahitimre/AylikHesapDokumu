@@ -1,0 +1,51 @@
+﻿@model AyHesapDokumu.Models.Aylar
+
+@{
+    ViewBag.Title = "Ay Duzenle";
+}
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading text-center">
+            <p class="ana-baslik">Ay Yönetimi</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ay Düzenle</h3>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.AylarId)
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="col-md-3">Ay Adı</th>
+                            <th class="col-md-3">Önem Derecesi</th>
+                            <th class="col-md-3"></th>
+                            <th class="col-md-3"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                       
+                        <tr>
+                            <td>@Html.TextBoxFor(m => m.AyAdi, new { @class = "form-control", @name = "text-input", @id = "text-input", @type = "text"})</td>
+                            <td>@Html.EnumDropDownListFor(x => x.OnemDerecesi, new { @class = "form-control" })</td>
+                            <td><button class="btn btn-primary col-md-12" type="submit">Düzenlemeyi Kaydet</button></td>
+                            <td><a href="/Home/Ay" class="btn btn-default col-md-6">Geri</a></td>
+                        </tr>
+                        
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

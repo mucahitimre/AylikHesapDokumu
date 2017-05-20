@@ -1,0 +1,42 @@
+div.col-md-4.col-sm-6.footer-navigation{
+  padding-top:1%;
+}
+
+span{
+  color:#5383d3;
+}
+
+p a{
+  color:white;
+}
+
+
+
+span.panelSpanIcon{
+  font-weight:600;
+  float:right;
+}
+
+i.paneicon{
+  margin-left:6px;
+  padding-top:0px;
+}
+
+span.panelSpan{
+  margin:3px -4px 7px 7px;
+  float:left;
+}
+.xfooter {
+    position: fixed;
+    bottom: 0;
+}
+.anasutun {
+    margin-top: 20px;
+}
+
+.ana-baslik {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 0px;
+}
+
