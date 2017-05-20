@@ -147,74 +147,6 @@
 
 
 <script type="text/javascript">
-
-    //#region Sil Düzenle İşlemleri
-
-    //$(".sil").on("click", function (e) {
-    //var link = this;
-    //e.preventDefault();
-    //swal({
-    //title: "Uyarı!",
-    //text: '"' + link.id +'" '+ "Silmek istediğinizden emin misiniz?\n",
-    //type: "warning",
-    //showCancelButton: true,
-    //confirmButtonColor: "#DD6B55",
-    //confirmButtonText: "Evet",
-    //cancelButtonText: "Hayır",
-    //closeOnConfirm: false,
-    //closeOnCancel: false
-    //},
-    //function (isConfirm) {
-    //if (isConfirm) {
-    //swal("Silindi!", '"' + link.id + '"' + " Açıklamalı veri silindi!", "success");
-    //setTimeout(Yenile, 2000);
-    //}
-    //else {
-    //swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
-    //}
-    //});
-    //function Yenile() {
-    //window.location = link.href;
-    //}
-    //});
-
-    //$(".sil").on("click", function (e) {
-    //alert("a");
-    //});
-
-        $(".sil").on("click", function (e) {
-        swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
-        var link = this;
-        e.preventDefault();
-        swal({
-            title: "Uyarı!",
-            text: " " + link.id + "Ayını Silmek istediğinizden emin misiniz?\n",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-            function (isConfirm) {
-                if (isConfirm) {
-                    swal("Silindi!", '"' + link.id + '"' + "ayına ait tüm veriler silindi!", "success");
-                    setTimeout(Yenile, 2000);
-                }
-                else {
-                    swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
-                }
-            });
-        function Yenile() {
-            window.location = link.href;
-        }
-        });
-    
-    //#endregion
-
-
-
     //#region Gelir Gider İşlemleri
     var sel = document.getElementById('selectay');
     $("select").trigger("change", sel);
@@ -256,7 +188,7 @@
                         } else {
                             giderHtml += '<tr>' + '<td>' + data[i].Aciklama + ' </td>' + '<td>' + data[i].Tutar + ' </td>' + '<td>' + onem + ' </td>' + '<td>' +
 
-                                '<a  href="/Home/GGSil/' + data[i].GelirgiderId + '" id="' + data[i].Aciklama.split(' ')[0] + '" class="btn btn-danger sil" >Sil </a>' +
+                                '<a href="/Home/GGSil/' + data[i].GelirgiderId + '" id="' + data[i].Aciklama.split(' ')[0] + '" class="btn btn-danger sil" >Sil </a>' +
                                 '<a href="/Home/GGDuzenle/' + data[i].GelirgiderId + '" class="btn btn-info" type="button">Düzenle </a>' +
 
                                 '</td>' + '</tr>';
@@ -264,6 +196,37 @@
                     }
                     document.getElementById("gelirBody").innerHTML = gelirHtml;
                     document.getElementById("giderBody").innerHTML = giderHtml;
+
+
+                    //#region Sil Düzenle İşlemleri
+                    $(".sil").on("click", function (e) {
+                        var link = this;
+                        e.preventDefault();
+                        swal({
+                            title: "Uyarı!",
+                            text: '"' + link.id + "' Ayını Silmek istediğinizden emin misiniz?\n",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Evet",
+                            cancelButtonText: "Hayır",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    swal("Silindi!", '"' + link.id + '"' + "ayına ait tüm veriler silindi!", "success");
+                                    setTimeout(Yenile, 2000);
+                                }
+                                else {
+                                    swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
+                                }
+                            });
+                        function Yenile() {
+                            window.location = link.href;
+                        }
+                    });
+                    //#endregion
                 },
                 error: function (err) {
                     swal("HATA!", "Tekrar Deneyin!", "error");
@@ -273,6 +236,8 @@
         else { document.getElementById('gelirGider').style.display = "none"; }
     };
     //#endregion
+
+
 
 
 </script>
