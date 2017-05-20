@@ -1,0 +1,68 @@
+﻿@using AyHesapDokumu.Models
+@model AyHesapDokumu.Models.TumAylarWM
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading text-center">
+            <p class="ana-baslik">Analiz</p>
+        </div>
+    </div>
+</div>
+<div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Ayların özeti</h3>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ay Adı</th>
+                            <th>Toplam Gelir </th>
+                            <th>Toplam Gider</th>
+                            <th>Analiz </th>
+                            <th>Önem Derecesi </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.AylarList)
+                            {
+                                //string classname = "info";
+                                //if (item.OnemDerecesi == AyOnemDerecesi.Orta)
+                                //{
+                                //classname = "success";
+                                //}
+                                //else if (item.OnemDerecesi == AyOnemDerecesi.Yüksek)
+                                //{
+                                //classname = "danger";
+                                //}
+                                string classname = "info";
+                                if ((item.ToplamGelir - item.ToplamGider) > 0)
+                                {
+                                    classname = "success";
+                                }
+                                else if ((item.ToplamGelir - item.ToplamGider) < 0)
+                                {
+                                    classname = "danger";
+                                }
+
+
+                                <tr class="@classname">
+                                    <td>@item.AyAdi</td>
+                                    <td>@item.ToplamGelir</td>
+                                    <td>@item.ToplamGider</td>
+                                    <td>@(item.ToplamGelir - item.ToplamGider)</td>
+                                    <td>@item.OnemDerecesi</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

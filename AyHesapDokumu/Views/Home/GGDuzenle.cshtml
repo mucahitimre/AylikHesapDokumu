@@ -1,0 +1,143 @@
+﻿@model AyHesapDokumu.Models.GelirGider
+
+@{
+    ViewBag.Title = Model.Gelirmi ? "Gelir Düzenle" : "Gider Düzenle";
+}
+<div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-primary">
+        <div data-toggle="collapse" data-target="#gider-listesi" class="panel-heading" style="cursor: pointer">
+           
+                @if (Model.Gelirmi)
+                {
+                    <h3 class="text-left panel-title" style="float: left">
+                        @Model.Aylar.AyAdi - Geliri Düzenleme
+                    </h3>
+                }
+                else
+                {
+   <h3 class="text-left panel-title" style="float: left">
+       @Model.Aylar.AyAdi - Gideri Düzenleme
+                    </h3>
+                }
+
+                    
+            <div class="text-right panel-title">
+                -
+            </div>
+        </div>
+        <div id="gider-listesi" class="panel-body  collapse in">
+            <div class="table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">Açıklama </th>
+                            <th class="col-md-3">TL </th>
+                            <th class="col-md-3">Önem Derecesi</th>
+                            <th class="col-md-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.Aylar)
+                            @Html.HiddenFor(m => m.AylarId)
+                            @Html.HiddenFor(m => m.GelirgiderId)
+                            <tr>
+                                <td>@Html.TextBoxFor(x => x.Aciklama, new { @class = "form-control", @placeholder = "Açıklama", required = "required" })</td>
+                                <td>@Html.TextBoxFor(x => x.Tutar, new { @class = "form-control", @placeholder = "Tutar", required = "required" })</td>
+                                <td>@Html.EnumDropDownListFor(wm => wm.OnemDerecesi, new { @class = "form-control" })</td>
+
+                                @if (Model.Gelirmi)
+                                {
+                                    <td><input type="submit" class="btn btn-success col-md-7" value="Geliri Düzenle" /><a style="margin-left: 5px" href="/Home/Hesap" class="btn btn-default col-md-4">Geri</a></td>
+
+                                }
+                                else
+                                {
+
+                                    <td><input type="submit" class="btn btn-success col-md-7" value="Gideri Düzenle" /><a style="margin-left: 5px" href="/Home/Hesap" class="btn btn-default col-md-4">Geri</a></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>GelirGider</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Aciklama, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Aciklama, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Aciklama, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gelirmi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Gelirmi)
+                        @Html.ValidationMessageFor(model => model.Gelirmi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tutar, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Tutar, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tutar, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AddDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AddDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AddDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OnemDerecesi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.OnemDerecesi, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OnemDerecesi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AylarId, "AylarId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("AylarId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AylarId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@

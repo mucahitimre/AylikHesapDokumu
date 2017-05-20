@@ -1,0 +1,278 @@
+﻿@model AyHesapDokumu.Models.GelirGiderAyWM
+@{
+    ViewBag.Title = "Hesap Yönetimi";
+}
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading text-center">
+            <p class="ana-baslik">Hesap Düzenleme</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ay Seçimi</h3>
+            </div>
+            <div class="panel-body">
+                @* ReSharper disable once UnknownCssClass *@
+                <div class="bootstrap-form-with-validation">
+                    <div class="form-group">
+                        @if (ViewBag.seciliAy != null)
+                        {
+                            @Html.DropDownList("select", new SelectList(Model.AylarList.Select(x => new { Value = x.AylarId, Text = x.AyAdi }), "Value", "Text", ViewBag.seciliAy), "Ay Seçiniz", new { @id = "selectay", @class = "form-control", @onchange = "check(this);" })
+
+                        }
+                        else
+                        {
+                            @Html.DropDownList("select", new SelectList(Model.AylarList.Select(x => new { Value = x.AylarId, Text = x.AyAdi }), "Value", "Text"), "Ay Seçiniz", new { @id = "selectay", @class = "form-control", @onchange = "check(this);" })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="gelirGider" style="display: none;">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-primary">
+                <div data-toggle="collapse" data-target="#gelir-listesi" class="panel-heading" style="cursor: pointer">
+                    <h3 class="text-left panel-title" style="float: left">Gelir Listesi</h3>
+                    <div class="text-right panel-title">
+                        -
+                    </div>
+                </div>
+                <div id="gelir-listesi" class="panel-body  collapse in">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-3">Açıklama </th>
+                                    <th class="col-md-3">TL </th>
+                                    <th class="col-md-3">Önem Derecesi</th>
+                                    <th class="col-md-3">İşlem </th>
+                                </tr>
+                            </thead>
+                            <tbody id="gelirBody"></tbody>
+
+                        </table>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-3"></th>
+                                    <th class="col-md-3"></th>
+                                    <th class="col-md-3"></th>
+                                    <th class="col-md-3"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @using (Html.BeginForm("Hesap", "Home", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GelirGider.Aciklama, new { @class = "form-control", @placeholder = "Açıklama", required = "required" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GelirGider.Tutar, new { @class = "form-control", @placeholder = "Tutar", required = "required" })</td>
+                                        <td>@Html.EnumDropDownListFor(wm => wm.GelirGider.OnemDerecesi, new { @class = "form-control" })</td>
+                                        @Html.TextBoxFor(wm => wm.GelirGider.Gelirmi, new { @style = "display: none", @Value = "true" })
+                                        @Html.TextBoxFor(wm => wm.GelirGider.AylarId, new { @style = "display: none", id = "ayGelirid" })
+
+                                        <td><input type="submit" class="btn btn-default" value="Gelir Ekle" /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-primary">
+                <div data-toggle="collapse" data-target="#gider-listesi" class="panel-heading" style="cursor: pointer">
+                    <h3 class="text-left panel-title" style="float: left">
+                        Gider Listesi
+                    </h3>
+                    <div class="text-right panel-title">
+                        -
+                    </div>
+                </div>
+                <div id="gider-listesi" class="panel-body  collapse in">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-3">Açıklama </th>
+                                    <th class="col-md-3">TL </th>
+                                    <th class="col-md-3">Önem Derecesi</th>
+                                    <th class="col-md-3">İşlem </th>
+                                </tr>
+                            </thead>
+                            <tbody id="giderBody"></tbody>
+                        </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-3"></th>
+                                    <th class="col-md-3"></th>
+                                    <th class="col-md-3"></th>
+                                    <th class="col-md-3"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @using (Html.BeginForm("Hesap", "Home", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GelirGider.Aciklama, new { @class = "form-control", @placeholder = "Açıklama", required = "required" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GelirGider.Tutar, new { @class = "form-control", @placeholder = "Tutar", required = "required" })</td>
+                                        <td>@Html.EnumDropDownListFor(wm => wm.GelirGider.OnemDerecesi, new { @class = "form-control" })</td>
+                                        @Html.TextBoxFor(wm => wm.GelirGider.Gelirmi, new { @style = "display: none", @Value = "false" })
+                                        @Html.TextBoxFor(wm => wm.GelirGider.AylarId, new { @style = "display: none", id = "ayGiderid" })
+                                        <td><input type="submit" class="btn btn-default" value="Gider Ekle" /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    //#region Sil Düzenle İşlemleri
+
+    //$(".sil").on("click", function (e) {
+    //var link = this;
+    //e.preventDefault();
+    //swal({
+    //title: "Uyarı!",
+    //text: '"' + link.id +'" '+ "Silmek istediğinizden emin misiniz?\n",
+    //type: "warning",
+    //showCancelButton: true,
+    //confirmButtonColor: "#DD6B55",
+    //confirmButtonText: "Evet",
+    //cancelButtonText: "Hayır",
+    //closeOnConfirm: false,
+    //closeOnCancel: false
+    //},
+    //function (isConfirm) {
+    //if (isConfirm) {
+    //swal("Silindi!", '"' + link.id + '"' + " Açıklamalı veri silindi!", "success");
+    //setTimeout(Yenile, 2000);
+    //}
+    //else {
+    //swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
+    //}
+    //});
+    //function Yenile() {
+    //window.location = link.href;
+    //}
+    //});
+
+    //$(".sil").on("click", function (e) {
+    //alert("a");
+    //});
+
+        $(".sil").on("click", function (e) {
+        swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
+        var link = this;
+        e.preventDefault();
+        swal({
+            title: "Uyarı!",
+            text: " " + link.id + "Ayını Silmek istediğinizden emin misiniz?\n",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    swal("Silindi!", '"' + link.id + '"' + "ayına ait tüm veriler silindi!", "success");
+                    setTimeout(Yenile, 2000);
+                }
+                else {
+                    swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
+                }
+            });
+        function Yenile() {
+            window.location = link.href;
+        }
+        });
+    
+    //#endregion
+
+
+
+    //#region Gelir Gider İşlemleri
+    var sel = document.getElementById('selectay');
+    $("select").trigger("change", sel);
+    if (sel.value !== "") {
+        check(sel);
+    }
+    else {
+        document.getElementById('gelirGider').style.display = "none";
+    }
+    function check(selectay) {
+        document.getElementById('gelirGider').style.display = "block";
+        var chec = selectay.value;
+        if (chec !== "") {
+            document.getElementById('ayGelirid').value = chec;
+            document.getElementById('ayGiderid').value = chec;
+            $.ajax({
+                url: '/Home/HesapAcRe',
+                type: 'Get',
+                dataType: 'Json',
+                data: { id: chec },
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    var gelirHtml = "";
+                    var giderHtml = "";
+                    for (var i = 0; i < data.length; i++) {
+                        var onem = "Düşük";
+                        if (data[i].OnemDerecesi === 1) {
+                            onem = "Orta";
+                        } else if (data[i].OnemDerecesi === 2) {
+                            onem = "Yüksek";
+                        }
+                        if (data[i].Gelirmi) {
+                            gelirHtml += '<tr>' + '<td>' + data[i].Aciklama + ' </td>' + '<td>' + data[i].Tutar + ' </td>' + '<td>' + onem + ' </td>' + '<td>' +
+
+                                '<a href="/Home/GGSil/' + data[i].GelirgiderId + '" id="' + data[i].Aciklama.split(' ')[0] + '" class="btn btn-danger sil" >Sil </a>' +
+                                '<a href="/Home/GGDuzenle/' + data[i].GelirgiderId + '" class="btn btn-info" type="button">Düzenle </a>' +
+
+                                '</td>' + '</tr>';
+                        } else {
+                            giderHtml += '<tr>' + '<td>' + data[i].Aciklama + ' </td>' + '<td>' + data[i].Tutar + ' </td>' + '<td>' + onem + ' </td>' + '<td>' +
+
+                                '<a  href="/Home/GGSil/' + data[i].GelirgiderId + '" id="' + data[i].Aciklama.split(' ')[0] + '" class="btn btn-danger sil" >Sil </a>' +
+                                '<a href="/Home/GGDuzenle/' + data[i].GelirgiderId + '" class="btn btn-info" type="button">Düzenle </a>' +
+
+                                '</td>' + '</tr>';
+                        }
+                    }
+                    document.getElementById("gelirBody").innerHTML = gelirHtml;
+                    document.getElementById("giderBody").innerHTML = giderHtml;
+                },
+                error: function (err) {
+                    swal("HATA!", "Tekrar Deneyin!", "error");
+                }
+            });
+        }
+        else { document.getElementById('gelirGider').style.display = "none"; }
+    };
+    //#endregion
+
+
+</script>

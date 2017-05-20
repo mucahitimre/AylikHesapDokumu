@@ -1,0 +1,126 @@
+﻿@using AyHesapDokumu.Models
+@model AyHesapDokumu.Models.AyWM
+@{
+    ViewBag.Title = "Ay";
+}
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading text-center">
+            <p class="ana-baslik">Ay Yönetimi</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ay Ekle</h3>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("Ay", "Home", FormMethod.Post, new { @class = "bootstrap-form-with-validation" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-md-4">Ay Adı</th>
+                                <th class="col-md-4">Önem Derecesi</th>
+                                <th class="col-md-4"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Html.TextBoxFor(m => m.Aylar.AyAdi, new { @class = "form-control", @name = "text-input", @id = "text-input", @type = "text", required = "required", @placeholder = "Yeni Ay Adı" })</td>
+                                <td>@Html.EnumDropDownListFor(x => x.Aylar.OnemDerecesi, new { @class = "form-control" })</td>
+                                <td><button class="btn btn-primary col-md-4" type="submit">Kaydet</button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ay Listesi</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ay Adı</th>
+                                <th>Önem Derecesi</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.AylarList)
+                            {
+                                string classname = "info";
+                                if (item.OnemDerecesi == AyOnemDerecesi.Orta)
+                                {
+                                    classname = "success";
+                                }
+                                else if (item.OnemDerecesi == AyOnemDerecesi.Yüksek)
+                                {
+                                    classname = "danger";
+                                }
+
+                                <tr class="@classname">
+                                    <td>@item.AyAdi </td>
+                                    <td>@item.OnemDerecesi</td>
+                                    <td>
+                                        <a href="/Home/AySil/@item.AylarId" id="@item.AyAdi" class="btn btn-danger aysil">Sil</a>
+                                        <a href="/Home/AyDuzenle/@item.AylarId" id="@item.AyAdi" class="btn btn-info">Düzenle</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".aysil").on("click", function (e) {
+        var link = this;
+        e.preventDefault();
+        swal({
+            title: "Uyarı!",
+            text: " " + link.id + "Ayını Silmek istediğinizden emin misiniz?\n",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    swal("Silindi!", '"' + link.id + '"' + "ayına ait tüm veriler silindi!", "success");
+                    setTimeout(Yenile, 2000);
+                }
+                else {
+                    swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
+                }
+            });
+        function Yenile() {
+            window.location = link.href;
+        }
+    });
+
+
+</script>
