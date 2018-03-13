@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -157,7 +158,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aylar.cs" />
     <Compile Include="Models\AyOnemDerecesi.cs" />
-    <Compile Include="Models\AyWM.cs" />
+    <Compile Include="Models\AyWiewModel.cs" />
     <Compile Include="Models\GelirGider.cs" />
     <Compile Include="Models\GelirGiderAyWM.cs" />
     <Compile Include="Models\SiteContext.cs" />
@@ -173,7 +174,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Home\AyDuzenle.cshtml" />
-    <Content Include="Views\Home\GGDuzenle.cshtml" />
+    <Content Include="Views\Home\GelirGiderDuzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

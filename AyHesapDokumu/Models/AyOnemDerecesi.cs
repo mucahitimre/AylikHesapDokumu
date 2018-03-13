@@ -1,9 +1,23 @@
 namespace AyHesapDokumu.Models
 {
+    /// <summary>
+    /// The ay onem derecesi
+    /// </summary>
     public enum AyOnemDerecesi
     {
-        Düþük = 0,
+        /// <summary>
+        /// The dusuk
+        /// </summary>
+        Dusuk = 0,
+
+        /// <summary>
+        /// The orta
+        /// </summary>
         Orta = 1,
-        Yüksek = 2
+
+        /// <summary>
+        /// The yuksek
+        /// </summary>
+        Yuksek = 2
     }
 }

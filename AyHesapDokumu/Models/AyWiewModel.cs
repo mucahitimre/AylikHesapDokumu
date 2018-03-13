@@ -3,10 +3,18 @@
 namespace AyHesapDokumu.Models
 {
     /// <summary>
-    /// The gelir gider ay wiew model
+    /// The ay wiew model
     /// </summary>
-    public class GelirGiderAyWiewModel
+    public class AyWiewModel
     {
+        /// <summary>
+        /// Gets or sets the onem derecesi.
+        /// </summary>
+        /// <value>
+        /// The onem derecesi.
+        /// </value>
+        public AyOnemDerecesi OnemDerecesi { get; set; }
+
         /// <summary>
         /// Gets or sets the aylar list.
         /// </summary>
@@ -16,11 +24,11 @@ namespace AyHesapDokumu.Models
         public List<Aylar> AylarList { get; set; }
 
         /// <summary>
-        /// Gets or sets the gelir gider.
+        /// Gets or sets the aylar.
         /// </summary>
         /// <value>
-        /// The gelir gider.
+        /// The aylar.
         /// </value>
-        public GelirGider GelirGider { get; set; }  
+        public Aylar Aylar { get; set; }
     }
 }
