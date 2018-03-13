@@ -1,5 +1,5 @@
 ﻿@using AyHesapDokumu.Models
-@model AyHesapDokumu.Models.AyWM
+@model AyWiewModel
 @{
     ViewBag.Title = "Ay";
 }
@@ -65,12 +65,12 @@
                         <tbody>
                             @foreach (var item in Model.AylarList)
                             {
-                                string classname = "info";
+                                var classname = "info";
                                 if (item.OnemDerecesi == AyOnemDerecesi.Orta)
                                 {
                                     classname = "success";
                                 }
-                                else if (item.OnemDerecesi == AyOnemDerecesi.Yüksek)
+                                else if (item.OnemDerecesi == AyOnemDerecesi.Yuksek)
                                 {
                                     classname = "danger";
                                 }
@@ -117,10 +117,10 @@
                     swal("İptal ettiniz", "Silme işlemini iptal ettiniz", "error");
                 }
             });
+
         function Yenile() {
             window.location = link.href;
-        }
+        };
+
     });
-
-
 </script>

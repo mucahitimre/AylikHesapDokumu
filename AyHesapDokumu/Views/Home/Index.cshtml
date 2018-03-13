@@ -1,5 +1,4 @@
-﻿@using AyHesapDokumu.Models
-@model AyHesapDokumu.Models.TumAylarWM
+﻿@model AyHesapDokumu.Models.TumAylarWiewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -40,7 +39,7 @@
                                 //{
                                 //classname = "danger";
                                 //}
-                                string classname = "info";
+                                var classname = "info";
                                 if ((item.ToplamGelir - item.ToplamGider) > 0)
                                 {
                                     classname = "success";
